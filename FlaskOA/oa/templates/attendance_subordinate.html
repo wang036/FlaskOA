@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block content %}
+     <!-- Page Content -->
+    <div id="page-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">下属考勤管理</h1>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>假条编号</th>
+                            <th>假条状态</th>
+                            <th>请假类型</th>
+                            <th>请假原因</th>
+                            <th>起始时间</th>
+                            <th>结束时间</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                    {% for foo in atts_obj_list %}
+                        <tr>
+                            <td class="col-lg-1">{{loop.index}}</td>
+                            <td class="col-lg-1">{{ foo.astatue }}</td>
+                            <td class="col-lg-1">{{ foo.atype  }}</td>
+                            <td class="col-lg-3">{{ foo.reason  }}</td>
+                            <td class="col-lg-2">{{ foo.start_time  }}</td>
+                            <td class="col-lg-2">{{ foo.end_time  }}</td>
+                            <td class="col-lg-2">
+                                <a href="/edit_att_sub/?id={{ foo.id }}&flag=true" class="btn btn-default">通过</a>
+                                <a href="/edit_att_sub/?id={{ foo.id }}&flag=false" class="btn btn-default">驳回</a>
+                            </td>
+                        </tr>
+
+                    {% endfor %}
+
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+        </div>
+        <!-- /.container-fluid -->
+    </div>
+    <!-- /#page-wrapper -->
+{% endblock %}

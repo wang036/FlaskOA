@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <!-- Page Content -->
+    <div id="page-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">职员管理-编辑</h1>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-12">
+
+
+                    <div class="row">
+                        <p></p>
+                        <form method="post" enctype="multipart/form-data" action="/edit_person/">
+                            <input id="csrf_token" name="csrf_token" type="hidden"
+                                   value="IjIyZjA5NzY2MjI4MGZiMDc3OGQ0ZTg2ZTdiOGZkYTM5NTExNzFkODQi.XrNpNA.ZxPBMg01inEMf4xF_tONt1YOKz0">
+
+                            <input type="hidden" name="id" value="{{ per_obj.id }}" >
+
+                            <div class="form-group">
+                                <label class="control-label">用户名：</label>
+                                <input class="form-control" type="text" name="username" value="{{ per_obj.name }}">
+                                <label class="text-primary username_error"></label>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">密码：</label>
+                                <input class="form-control" type="password" name="password" value="{{ per_obj.password }}">
+                                <label class="text-primary password_error"></label>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">昵称：</label>
+                                <input class="form-control" type="text" name="nickname" value="{{ per_obj.nickname }}">
+                            </div>
+                             <div class="form-group">
+                                <label class="control-label">工号：</label>
+                                <input class="form-control" type="text" name="jobnum"
+                                       value="{{ per_obj.jobnum }}" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">性别：</label>
+                                <select class="form-control" name="gender">
+                                    {% if per_obj.gender == '男' %}
+                                        <option value="男" selected>男</option>
+                                        <option value="女">女</option>
+                                    {% else %}
+                                        <option value="男" >男</option>
+                                        <option value="女" selected>女</option>
+                                    {% endif %}
+
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">年龄：</label>
+                                <input class="form-control" type="number" name="age" value="{{ per_obj.age }}">
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">电话：</label>
+                                <input class="form-control" type="text" name="phone" value="{{ per_obj.phone }}">
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">邮箱：</label>
+                                <input class="form-control" type="text" name="email" value="{{ per_obj.email }}">
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">头像：</label>
+                                <input type="file" name="photo">
+                                <img src="/{{ per_obj.photo }}" alt="" width="200px" height="400px">
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">地址：</label>
+                                <textarea class="form-control" name="address">{{ per_obj.address }}</textarea>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">职位：</label>
+                                <select class="form-control" name="position_id">
+                                    {% for position_obj in pos_obj_list %}
+                                        {% if position_obj.name==per_obj.position.name %}
+                                            <option selected
+                                                    value="{{ position_obj.id }}">{{ position_obj.name }}</option>
+                                        {% else %}
+                                            <option value="{{ position_obj.id }}">{{ position_obj.name }}</option>
+                                        {% endif %}
+
+                                    {% endfor %}
+
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <button class="btn btn-primary btn-block">提交</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+        </div>
+        <!-- /.container-fluid -->
+    </div>
+    <!-- /#page-wrapper -->
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <!-- Page Content -->
+    <div id="page-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">
+                        权限管理
+                        <a class="btn btn-default pull-right" href="/add_permission/">添加</a>
+                    </h1>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>名称</th>
+                            <th>描述</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for foo in per_obj_list %}
+
+                        <tr>
+                            <td class="col-lg-4">{{ foo.name }}</td>
+                            <td class="col-lg-4">{{ foo.desc }}</td>
+                            <td class="col-lg-4">
+                                <a href="/edit_permission/?id={{ foo.id }}" class="btn btn-default">修改</a>
+                                <a href="/delete_permission/?id={{ foo.id }}" class="btn btn-default">删除</a>
+                                <a class="btn btn-default" href="/position_permission/?permission_id={{ foo.id }}">关联职位</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+
+
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+        </div>
+        <!-- /.container-fluid -->
+    </div>
+    <!-- /#page-wrapper -->
+{% endblock %}

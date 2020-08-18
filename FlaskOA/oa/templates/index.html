@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <script src="/static/js/index.js"></script>
+    <script src="/static/lib/echarts/js/echarts.min.js"></script>
+    <!-- Page Content -->
+    <div id="page-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">首页</h1>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div id="show"></div>
+                    <div class="col-lg-6">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                公司新闻
+                                <a class="pull-right" href="/news/">查看更多...</a>
+                            </div>
+                            <div class="panel-body">
+                                {% for foo in news_list %}
+                                    <div class="col-lg-6">{{ foo.title }}</div>
+                                    <div class="col-lg-6 text-right">{{ foo.public_time }}</div>
+                                {% endfor %}
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                考勤情况
+                                <a class="pull-right" href="/attendance_me/">查看更多...</a>
+                            </div>
+                            <div class="panel-body">
+
+                                {% for foo in attendance_list %}
+
+                                    <div class="col-lg-6">请{{ foo.atype }}{{ foo.adate }}</div>
+                                    <div class="col-lg-6 text-right">{{ foo.astatue }}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+        </div>
+        <!-- /.container-fluid -->
+    </div>
+    <!-- /#page-wrapper -->
+
+
+{% endblock %}
+{% block script %}
+    <script src="/static/lib/echarts/js/echarts.min.js"></script>
+    <script>
+         var myChart = echarts.init(document.getElementById('show'));
+        var option = {
+            title: {
+                text: '公司各部门职员人数统计'
+            },
+            tooltip: {},
+            legend: {
+                //data: ['职员人数']
+            },
+            xAxis: {
+                data: ["人事部", "后勤部", "安保部", "市场部", "技术部", "新媒体部", "法务部", "董事会", "财务部"]
+            },
+            yAxis: {},
+            series: [{
+                name: '职员人数',
+                type: 'bar', //柱状图
+                data: [990, 0, 0, 907, 961, 943, 0, 1, 1001]
+            }]
+        };
+
+
+        // echarts 实现
+        $.ajax({
+            url: '/index_ajax/', //请求的路径
+            type: 'get', // 请求方式
+            data: {}, // 携带的参数
+            success: function (result) {
+                {#console.log(result);#}
+                x = [];
+                y = [];
+                for (var i in result) {
+                    var deptObj = result[i];
+                    x.push(deptObj.dept_name);
+                    y.push(deptObj.dept_num);
+                }
+                {#console.log(x);#}
+                {#console.log(y);#}
+
+                //设置数据
+                option["xAxis"]["data"] = x;
+                option["series"][0]["data"] = y;
+                myChart.setOption(option);
+            },
+            error: function (result) {
+                console.log(result)
+            }
+        })
+    </script>
+{% endblock %}

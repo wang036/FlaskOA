@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <!-- Page Content -->
+    <div id="page-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">职员管理</h1>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="row">
+                        <div class="col-lg-8">
+
+
+                            <a class="btn btn-default" href="./person.html">财务部</a>
+
+
+                            <a class="btn btn-default" href="./person.html">技术部</a>
+
+
+                            <a class="btn btn-default" href="./person.html">市场部</a>
+
+
+                            <a class="btn btn-default" href="./person.html">人事部</a>
+
+
+                            <a class="btn btn-default" href="./person.html">新媒体部</a>
+
+
+                            <a class="btn btn-default" href="./person.html">后勤部</a>
+
+
+                            <a class="btn btn-default" href="./person.html">安保部</a>
+
+
+                            <a class="btn btn-default" href="./person.html">法务部</a>
+
+
+                            <a class="btn btn-default" href="./person.html">董事会</a>
+
+
+                        </div>
+                        <form role="form" class="col-lg-3" method="get" action="/vague_search/">
+                            <div class="form-group input-group">
+
+                                <input type="text" name="person_username" class="form-control" placeholder="输入要搜索的雇员的名字"
+                                       value="">
+                                <span class="input-group-btn">
+                    <button class="btn btn-default" type="submit">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </span>
+                            </div>
+                        </form>
+                        <div class="col-lg-1">
+                            <a class="btn btn-default" href="/add_person/">添加</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>职员用户名</th>
+                                <th>职员部门</th>
+                                <th>职员职位</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for person in person_obj%}
+                            <tr>
+                                <td>{{ person.name }}</td>
+                                <td>{{ person.position.dept.name}}</td>
+                                <td>{{ person.position.name }}</td>
+                                <td>
+                                    <a class="btn btn-default" href="/detail_person/?id={{ person.id }}">详情</a>
+                                    <a class="btn btn-default" href="/edit_person/?id={{ person.id }}">编辑</a>
+                                    <a class="btn btn-default" href="/delete_person/?id={{ person.id }}">删除</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+
+
+                            </tbody>
+                            <tfoot>
+                            <tr>
+                                <td colspan="4">
+                                    <ul class="pagination">
+                                        <li class="active"><a href="#">1</a></li>
+                                        <li><a href="#">2</a></li>
+                                        <li><a href="#">3</a></li>
+                                        <li><a href="#">4</a></li>
+                                        <li><a href="#">5</a></li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+        </div>
+        <!-- /.container-fluid -->
+    </div>
+    <!-- /#page-wrapper -->
+
+{% endblock %}
